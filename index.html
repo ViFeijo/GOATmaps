@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOATmaps</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button id="climaTab" class="active">🌦️ Clima</button>
+            <button id="economiaTab">💰 Economia</button>
+        </nav>
+    </header>
+    <main>
+        <div id="map"></div>
+        <aside id="painel">
+            <div id="painelpadrao">
+                <p>Clica no país</p>
+            </div>
+            <div id="climainfo" class="hidden">
+                <p id="climaPais"></p>
+                <p id="climaTemperatura"></p>
+                <p id="climaDescricao"></p>
+            </div>
+            <div id="economiainfo" class="hidden">
+                <h2 id="nomePais"></h2>
+                <div class="block">
+                    <p id="cambio"></p> /* cambio vrum vrum carro*/
+                </div>
+                <div class="block">
+                    <canvas id="graficoMoedinha"></canvas>
+                </div>
+                <div class="block">
+                    <p id="populacao"></p>
+                    <p id="capital"></p>
+                </div>
+                <div id="jornalzinhopapai">
+                    <h3>Noticias</h3>
+                    <ul id="newsList"></ul>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="main.js" type="module"></script>
+</body>
+</html>

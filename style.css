@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+
+:root {
+    --gold:       #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim:   #8A6A28;
+    --green-dark: #0D3B2A;
+    --green-mid:  #1A5C3E;
+    --green-light:#2D7D5F;
+    --black:      #0A0A0A;
+    --surface:    #0F1F18;
+    --surface2:   #162B20;
+    --text:       #EDE8DC;
+    --text-muted: #9E9880;
+    --border:     rgba(201, 168, 76, 0.25);
+}
+
+/* ─── RESET ─────────────────────────────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ─── BODY ───────────────────────────────── */
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+}
+
+/* ─── HEADER ─────────────────────────────── */
+header {
+    height: 64px;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1000;
+}
+
+/* logo wordmark */
+header::before {
+    content: "GOAT maps";
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.18em;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+}
+
+/* ─── TABS ───────────────────────────────── */
+button {
+    padding: 8px 20px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 4px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.06);
+}
+
+button.active {
+    background: var(--green-dark);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.15);
+}
+
+/* ─── MAIN LAYOUT ────────────────────────── */
+main {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+
+#map {
+    flex: 3;
+    height: 100%;
+}
+
+/* ─── PANEL ──────────────────────────────── */
+#painel {
+    flex: 1;
+    min-width: 280px;
+    max-width: 340px;
+    background: var(--surface);
+    padding: 24px 20px;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* scrollbar */
+#painel::-webkit-scrollbar { width: 4px; }
+#painel::-webkit-scrollbar-track { background: transparent; }
+#painel::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+/* ─── DEFAULT STATE ──────────────────────── */
+#painelpadrao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 14px;
+    opacity: 0.5;
+}
+
+#painelpadrao::before {
+    content: "◈";
+    font-size: 2.5rem;
+    color: var(--gold-dim);
+}
+
+#painelpadrao p {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ─── COUNTRY NAME ───────────────────────── */
+h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--gold-light);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+}
+
+h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 10px;
+}
+
+/* ─── BLOCKS ─────────────────────────────── */
+.block {
+    margin-top: 12px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold-dim);
+}
+
+/* ─── CLIMATE INFO ───────────────────────── */
+#climainfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#climaPais {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold-light);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+}
+
+#climaTemperatura {
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+#climaDescricao {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+/* ─── TEXT ───────────────────────────────── */
+p {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+#cambio {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+}
+
+#populacao, #capital {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+#populacao::before { content: "◦ "; color: var(--gold-dim); }
+#capital::before   { content: "◦ "; color: var(--gold-dim); }
+
+/* ─── NEWS ───────────────────────────────── */
+#jornalzinhopapai {
+    margin-top: 14px;
+}
+
+#newsList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#newsList li {
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: default;
+}
+
+#newsList li:hover {
+    border-color: var(--gold-dim);
+    color: var(--text);
+}
+
+/* ─── HIDDEN ─────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ─── LEAFLET OVERRIDES ──────────────────── */
+.leaflet-tile-pane {
+    filter: invert(1) hue-rotate(155deg) saturate(0.4) brightness(0.7);
+}
+
+.leaflet-control-attribution {
+    background: rgba(10, 10, 10, 0.8) !important;
+    color: var(--text-muted) !important;
+    font-size: 0.65rem !important;
+}
+
+.leaflet-control-zoom a {
+    background: var(--surface) !important;
+    color: var(--gold) !important;
+    border-color: var(--border) !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: var(--surface2) !important;
+    color: var(--gold-light) !important;
+}
