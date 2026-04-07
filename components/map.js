@@ -10,7 +10,6 @@ export function initMap(onCountryClick, onWeatherClick) {
 
     map.on("click", (e) => {
         if (currentMode !== "clima") return
-
         const { lat, lng } = e.latlng
         onWeatherClick({ lat, lng })
     })
@@ -19,10 +18,21 @@ export function initMap(onCountryClick, onWeatherClick) {
         .then(res => res.json())
         .then(data => {
             L.geoJSON(data, {
+                style: {
+                    fillColor: "transparent",
+                    color: "green",
+                    weight: 0.5,
+                    fillOpacity: 0
+                },
                 onEachFeature: (feature, layer) => {
+                    layer.on("mouseover", () => {
+                        layer.setStyle({ fillColor: "#0D3B2A", fillOpacity: 1 })
+                    })
+                    layer.on("mouseout", () => {
+                        layer.setStyle({ fillColor: "transparent", fillOpacity: 0 })
+                    })
                     layer.on("click", () => {
                         if (currentMode !== "economia") return
-
                         onCountryClick({
                             name: feature.properties.name,
                             code: feature.properties.iso_a2
