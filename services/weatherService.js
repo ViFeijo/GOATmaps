@@ -17,14 +17,13 @@ const weatherService = {
 
         const pais = geoData.address?.country ?? ""
 
-        // clima com Open-Meteo
         const weatherRes = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weathercode&timezone=auto`
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weather_code&timezone=auto`
         )
         const weatherData = await weatherRes.json()
 
         const temp = weatherData.current.temperature_2m
-        const code = weatherData.current.weathercode
+        const code = weatherData.current.weather_code
 
         return {
             pais: pais ? `${lugar}, ${pais}` : lugar,

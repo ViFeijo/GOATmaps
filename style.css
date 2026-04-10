@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
 
 :root {
-    --gold:       #C9A84C;
+    --gold: #C9A84C;
     --gold-light: #E8C97A;
-    --gold-dim:   #8A6A28;
+    --gold-dim: #8A6A28;
     --green-dark: #0D3B2A;
-    --green-mid:  #1A5C3E;
-    --green-light:#2D7D5F;
-    --black:      #0A0A0A;
-    --surface:    #0F1F18;
-    --surface2:   #162B20;
-    --text:       #EDE8DC;
+    --green-mid: #1A5C3E;
+    --green-light: #2D7D5F;
+    --black: #0A0A0A;
+    --surface: #0F1F18;
+    --surface2: #162B20;
+    --text: #EDE8DC;
     --text-muted: #9E9880;
-    --border:     rgba(201, 168, 76, 0.25);
+    --border: rgba(201, 168, 76, 0.25);
 }
 
 /* ─── RESET ─────────────────────────────── */
@@ -63,6 +63,78 @@ nav {
     gap: 8px;
 }
 
+#searchWrapper {
+    position: relative;
+    width: 320px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+#searchInput:focus {
+    border-color: var(--gold-dim);
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.15);
+}
+
+#searchInput::placeholder {
+    color: var(--text-muted);
+}
+
+#searchResults {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    list-style: none;
+    padding: 6px;
+    z-index: 2000;
+    overflow: hidden;
+}
+
+#searchResults li {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#searchResults li:hover {
+    background: var(--surface2);
+}
+
+.search-tipo {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    min-width: 40px;
+}
+
+.search-nome {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* ─── TABS ───────────────────────────────── */
 button {
     padding: 8px 20px;
@@ -98,9 +170,17 @@ main {
     min-height: 0;
 }
 
+#paleoMap {
+    flex: 3;
+    height: 100%;
+    border: none;
+    background: var(--black);
+}
+
 #map {
     flex: 3;
     height: 100%;
+    background-color: #000000;
 }
 
 /* ─── PANEL ──────────────────────────────── */
@@ -118,9 +198,18 @@ main {
 }
 
 /* scrollbar */
-#painel::-webkit-scrollbar { width: 4px; }
-#painel::-webkit-scrollbar-track { background: transparent; }
-#painel::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+#painel::-webkit-scrollbar {
+    width: 4px;
+}
+
+#painel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#painel::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+    border-radius: 2px;
+}
 
 /* ─── DEFAULT STATE ──────────────────────── */
 #painelpadrao {
@@ -145,6 +234,48 @@ main {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-muted);
+}
+
+#dinoList li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold-dim);
+    list-style: none;
+}
+
+.fossil-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+}
+
+.fossil-valor {
+    font-size: 0.92rem;
+    color: var(--text);
+}
+
+/* ─── FOSSIL TOOLTIP ─────────────────────── */
+.fossil-tooltip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    box-shadow: none;
+}
+
+.fossil-tooltip::before {
+    display: none;
 }
 
 /* ─── COUNTRY NAME ───────────────────────── */
@@ -222,13 +353,21 @@ p {
     color: var(--gold);
 }
 
-#populacao, #capital {
+#populacao,
+#capital {
     color: var(--text-muted);
     font-size: 0.9rem;
 }
 
-#populacao::before { content: "◦ "; color: var(--gold-dim); }
-#capital::before   { content: "◦ "; color: var(--gold-dim); }
+#populacao::before {
+    content: "◦ ";
+    color: var(--gold-dim);
+}
+
+#capital::before {
+    content: "◦ ";
+    color: var(--gold-dim);
+}
 
 /* ─── NEWS ───────────────────────────────── */
 #jornalzinhopapai {
@@ -261,7 +400,9 @@ p {
 }
 
 /* ─── HIDDEN ─────────────────────────────── */
-.hidden { display: none !important; }
+.hidden {
+    display: none !important;
+}
 
 /* ─── LEAFLET OVERRIDES ──────────────────── */
 .leaflet-tile-pane {

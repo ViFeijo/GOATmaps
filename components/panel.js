@@ -1,10 +1,10 @@
 import apiConfig from "../config/apiConfig.js"
 
-let grafico = null
 
 export function renderClima(data) {
     document.getElementById("painelpadrao").classList.add("hidden")
     document.getElementById("economiainfo").classList.add("hidden")
+   // document.getElementById("dinoinfo").classList.add("hidden")
     document.getElementById("climainfo").classList.remove("hidden")
 
     document.getElementById("climaPais").textContent = data.pais
@@ -15,6 +15,7 @@ export function renderClima(data) {
 export async function renderEconomia(data) {
     document.getElementById("painelpadrao").classList.add("hidden")
     document.getElementById("climainfo").classList.add("hidden")
+  //  document.getElementById("dinoinfo").classList.add("hidden")
     document.getElementById("economiainfo").classList.remove("hidden")
 
     document.getElementById("nomePais").textContent = data.nome
@@ -37,63 +38,45 @@ export async function renderEconomia(data) {
             lista.appendChild(li)
         })
     }
-
-    await renderGrafico(data.currency)
 }
 
-async function renderGrafico(currency) {
-    if (!currency) return
+export function renderFossilInfo(f) {
+    document.getElementById("painelpadrao").classList.add("hidden")
+    document.getElementById("climainfo").classList.add("hidden")
+    document.getElementById("economiainfo").classList.add("hidden")
+    document.getElementById("dinoinfo").classList.remove("hidden")
 
-    try {
-        const { key, baseUrl } = apiConfig.exchangeRate
-        const res = await fetch(`${baseUrl}/${key}/latest/USD`)
-        const data = await res.json()
+    const lista = document.getElementById("dinoList")
+    lista.innerHTML = ""
 
+    const campos = [
+        { label: "Nome", valor: f.nam },
+        { label: "Período", valor: f.early_interval ?? f.late_interval ?? "—" },
+        { label: "Ambiente", valor: f.envtype ?? "—" },
+        { label: "Formação", valor: f.formation ?? "—" },
+        { label: "País", valor: f.cc ?? "—" },
+        { label: "Lat / Lng", valor: f.lat && f.lng ? `${parseFloat(f.lat).toFixed(2)}, ${parseFloat(f.lng).toFixed(2)}` : "—" },
+    ]
 
-        const moedas = ["BRL", "EUR", "GBP", "JPY", "ARS", "CLP", "MXN", currency]
-        const labels = [...new Set(moedas)]
-        const valores = labels.map(m => data.conversion_rates[m] ?? 0)
+    campos.forEach(({ label, valor }) => {
+        if (!valor || valor === "—") return
+        const li = document.createElement("li")
+        li.innerHTML = `<span class="fossil-label">${label}</span><span class="fossil-valor">${valor}</span>`
+        lista.appendChild(li)
+    })
+}
 
-        const ctx = document.getElementById("graficoMoedinha").getContext("2d")
+export function renderFosseis(fosseis) {
+    document.getElementById("painelpadrao").classList.add("hidden")
+    document.getElementById("climainfo").classList.add("hidden")
+    document.getElementById("economiainfo").classList.add("hidden")
+    document.getElementById("dinoinfo").classList.remove("hidden")
 
-        if (grafico) grafico.destroy()
+    const lista = document.getElementById("dinoList")
+    lista.innerHTML = ""
 
-        grafico = new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels,
-                datasets: [{
-                    label: "Valor em relação ao USD",
-                    data: valores,
-                    backgroundColor: labels.map(m =>
-                        m === currency
-                            ? "rgba(201, 168, 76, 0.85)"
-                            : "rgba(45, 125, 95, 0.5)"
-                    ),
-                    borderColor: labels.map(m =>
-                        m === currency ? "#C9A84C" : "#2D7D5F"
-                    ),
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        ticks: { color: "#9E9880" },
-                        grid: { color: "rgba(201,168,76,0.1)" }
-                    },
-                    x: {
-                        ticks: { color: "#9E9880" },
-                        grid: { display: false }
-                    }
-                }
-            }
-        })
-    } catch (e) {
-        console.error("Erro ao gerar gráfico:", e)
+    if (fosseis.length === 0) {
+        lista.innerHTML = "<li>Clique em uma bolinha no mapa.</li>"
+        return
     }
 }
