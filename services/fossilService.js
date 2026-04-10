@@ -1,3 +1,4 @@
+
 const fossilService = {
     async get(countryCode = null) {
         const filtroPais = countryCode ? `&country=${countryCode}` : "";

@@ -14,7 +14,7 @@ initMap(onCountryClick, onWeatherClick, onDinoClick)
 
 document.getElementById("climaTab").onclick = () => setMode("clima")
 document.getElementById("economiaTab").onclick = () => setMode("economia")
-document.getElementById("dinoTab").onclick = () => setMode("dino")
+//document.getElementById("dinoTab").onclick = () => setMode("dino")
 /*
 async function setMode(newMode) {
     mode = newMode
@@ -31,11 +31,11 @@ async function setMode(newMode) {
     document.getElementById("climaTab").classList.toggle("active", mode === "clima")
     document.getElementById("economiaTab").classList.toggle("active", mode === "economia")
     document.getElementById("dinoTab").classList.toggle("active", mode === "dino")
-}
+}*/
 const searchInput = document.getElementById("searchInput")
 const searchResults = document.getElementById("searchResults")
 let searchTimeout = null
-*/
+
 function setMode(newMode) {
     mode = newMode
     setMapMode(mode)
