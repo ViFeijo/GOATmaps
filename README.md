@@ -1,6 +1,6 @@
 
 <img src="assets/GOATmaps.png" width="1000" height = "500">
-#
+
 <h1>APIs utilizadas no projeto</h1>
 
   <ul>
